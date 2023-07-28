@@ -1,4 +1,9 @@
- const playerChoice = prompt("please choose rock, paper or scissors")
+let playerScore = 0
+let computerScore = 0
+let playerChoice = null
+function setPlayerChoice(choice) {
+    playerChoice = choice
+}
 
 
 function getRandomChoice() {
@@ -7,26 +12,100 @@ function getRandomChoice() {
     return choices[randomIndex];
 }
 
+
+
 function Compaerchoices(playerChoice, computerChoice) {
+
+
     if (playerChoice === computerChoice) {
-        return `it's a tie`
+        return "a tie"
     }
     else if (
         playerChoice === 'rock' && computerChoice === 'scissors' ||
-        playerChoice === 'paper' && computerChoice === 'rock' ||
-        playerChoice === 'scissors' && computerChoice === 'paper') {
-        return "You Won!"
+        playerChoice=== 'paper' && computerChoice === 'rock' ||
+        playerChoice === 'scissors' && computerChoice=== 'paper') {
+        return "a win for you"
     }
-    else {
-        return 'The computer Won'
+
+    else if (
+        computerChoice === 'rock' && playerChoice === 'scissors' ||
+        computerChoice=== 'paper' && playerChoice === 'rock' ||
+        computerChoice === 'scissors' && playerChoice === 'paper'
+    ) {
+        return "a win for the computer"
     }
+
+
 }
 
 
-function play() {
+
+
+
+function playRound() {
     const computerChoice = getRandomChoice()
     const result = Compaerchoices(playerChoice, computerChoice)
-    console.log(`you chose ${playerChoice} and the computer chose ${computerChoice} so the result is ${result}`)
+    const resultElement = document.querySelector('.result')
+    resultElement.textContent = `you chose ${playerChoice} and the computer chose ${computerChoice} so It's a ${result}`
+    const scoreElement = document.querySelector('.score')
+
+
+    if (result === "a win for the computer") {
+         computerScore++
+    }
+
+    else if (result === "a win for you") {
+        playerScore++
+    }
+
+    else if (result === "a tie") {
+        
+    }
+
+
+    if (playerScore < 5 && computerScore < 5) {
+
+    }
+    else if (playerScore == 5) {
+        resultElement.textContent = "you Won the game"
+        resetResult()
+    }
+
+    else if (computerScore == 5) {
+        resultElement = "the computer won the game"
+        resetResult()
+    }
+    scoreElement.textContent = `the current score is ${computerScore} points for the computer and ${playerScore} points for you`
+
+
 }
 
-play()
+
+
+function resetResult () {
+    playerScore = 0
+    computerScore= 0
+    attachButtonEventListener
+}
+
+
+
+
+
+function attachButtonEventListener() {
+    const buttons = document.querySelectorAll('.buttons button')
+    buttons.forEach(button => {
+        button.addEventListener('click', () => {
+            const choice = button.textContent.toLowerCase()
+            setPlayerChoice(choice)
+            playRound()
+        })
+
+    });
+
+}
+
+
+attachButtonEventListener()
+
+
