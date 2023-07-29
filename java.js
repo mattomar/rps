@@ -1,6 +1,7 @@
 let playerScore = 0
 let computerScore = 0
 let playerChoice = null
+
 function setPlayerChoice(choice) {
     playerChoice = choice
 }
@@ -22,14 +23,14 @@ function Compaerchoices(playerChoice, computerChoice) {
     }
     else if (
         playerChoice === 'rock' && computerChoice === 'scissors' ||
-        playerChoice=== 'paper' && computerChoice === 'rock' ||
-        playerChoice === 'scissors' && computerChoice=== 'paper') {
+        playerChoice === 'paper' && computerChoice === 'rock' ||
+        playerChoice === 'scissors' && computerChoice === 'paper') {
         return "a win for you"
     }
 
     else if (
         computerChoice === 'rock' && playerChoice === 'scissors' ||
-        computerChoice=== 'paper' && playerChoice === 'rock' ||
+        computerChoice === 'paper' && playerChoice === 'rock' ||
         computerChoice === 'scissors' && playerChoice === 'paper'
     ) {
         return "a win for the computer"
@@ -51,7 +52,7 @@ function playRound() {
 
 
     if (result === "a win for the computer") {
-         computerScore++
+        computerScore++
     }
 
     else if (result === "a win for you") {
@@ -59,32 +60,38 @@ function playRound() {
     }
 
     else if (result === "a tie") {
-        
+
     }
+
+
 
 
     if (playerScore < 5 && computerScore < 5) {
 
+        scoreElement.textContent = `the current score is ${computerScore} points for the computer and ${playerScore} points for you`
+
     }
-    else if (playerScore == 5) {
-        resultElement.textContent = "you Won the game"
+    else {
+        if (playerScore == 5) {
+            resultElement.textContent = "you Won the game"
+            scoreElement.textContent = `the current score is 0 points for the computer and 0 points for you`
+
+        }
+
+        if (computerScore == 5) {
+            resultElement.textContent = "the computer won the game"
+            scoreElement.textContent = `the current score is 0 points for the computer and 0 points for you`
+        }
         resetResult()
     }
-
-    else if (computerScore == 5) {
-        resultElement = "the computer won the game"
-        resetResult()
-    }
-    scoreElement.textContent = `the current score is ${computerScore} points for the computer and ${playerScore} points for you`
-
-
 }
 
 
 
-function resetResult () {
+function resetResult() {
     playerScore = 0
-    computerScore= 0
+    computerScore = 0
+    playerChoice = null
     attachButtonEventListener
 }
 
